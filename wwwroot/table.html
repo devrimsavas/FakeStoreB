@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Table</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body id="body">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">MyCompany</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="table.html">Staff</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--main container-->
+    <main class="container shadow">
+        <h1 class="mb-4 mt-3">Staff Information</h1>
+
+        <div class="container row">
+            <div class="col-4">
+                <!--search box -->
+                <div class="container" id="searchtool">
+                    <label for="searchinput">Search Person</label>
+                    <input type="text" class="form-control mb-2" id="searchinput" name="searchinput">
+                </div><!--end search box-->
+
+                <div class="container border rounded mb-4" id="addupdatecontainer">
+                    <h5>ADD PERSON</h5>
+                    <form id="addpersonform" class="py-3">
+                        <label for="stafffirstnameinput"> First Name:</label>
+                        <input class="form-control" required placeholder="staff first name" id="stafffirstnameinput"
+                            name="stafffirstnameinput" type="text">
+                        <label for="stafflastnameinput"> Last Name:</label>
+                        <input class="form-control" required placeholder="staff last name" id="stafflastnameinput"
+                            name="stafflastnameinput" type="text">
+                        <label for="emailinput">Email</label>
+                        <input class="form-control" name="emailinput" id="emailinput" type="email">
+                        <label for="phoneinput">Phone</label>
+                        <input class="form-control" name="phoneinput" id="phoneinput" type="text">
+                        <label for="locationinput">Location</label>
+                        <input class="form-control" name="locationinput" id="locationinput" type="text">
+                        <button type="button" class="btn btn-primary mt-2" id="addpersonbutton"
+                            name="addpersonbutton">Add
+                            New Person</button>
+                        <!--update button-->
+                        <button type="button" class="btn btn-secondary mt-2" id="updatepersonbutton"
+                            name="updatepersonbutton">Update Person</button>
+
+
+                    </form>
+
+                </div>
+
+            </div> <!--end of left side-->
+            <div class="col-8">
+                <!--table -->
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover w-200">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th class="text-decoration-underline">Staff Id</th>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stafftablebody">
+                            <!-- Table body will be dynamically populated -->
+                        </tbody>
+                    </table>
+                </div> <!--table end -->
+            </div>
+        </div>
+    </main> <!--main end -->
+
+    <footer class="bg-warning text-light py-3  fixed-bottom">
+        <div class="container text-center">
+            <p>&copy; 2025 MyCompany. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        //update button disabled 
+        document.getElementById("updatepersonbutton").disabled = true;
+
+        const baseUrl = window.location.origin;
+        async function getPeople() {
+            try {
+                let staffTableBody = document.getElementById("stafftablebody");
+
+                let personNumber = 12;
+                let personId = 0;
+                let row = "";
+                const response = await fetch(`${baseUrl}/staff`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ PersonNumber: personNumber })
+                });
+                if (response.ok) {
+                    const personData = await response.json();
+                    console.log(personData);
+
+                    // Populate table rows
+                    for (let person of personData) {
+                        row += `<tr data-person-id="${person.id}">
+                    <td>${++personId}</td>
+                    <td style="font-weight:bold;">${person.id}</td>
+                    <td><img src="${person.photoUrl}" alt="Photo" class="img-fluid" style="width: 50px; height: 50px;"></td>
+                    <td>${person.firstName} ${person.lastName}</td>
+                    <td>${person.email}</td>
+                    <td>${person.phone}</td>
+                    <td>${person.location}</td>
+                </tr>`;
+                    }
+
+                    // Add rows to the table
+                    staffTableBody.innerHTML = row;
+
+                    // Add event listener to the table body
+                    staffTableBody.addEventListener("click", (e) => {
+                        const clickedRow = e.target.closest("tr");
+                        if (!clickedRow) return;
+
+                        // Remove "selected" class from other rows
+                        document.querySelectorAll("#stafftablebody tr").forEach(row => row.classList.remove("selected"));
+
+                        // Mark the clicked row as selected
+                        clickedRow.classList.add("selected");
+
+                        const personId = clickedRow.getAttribute("data-person-id");
+                        console.log(`Row clicked! Person ID: ${personId}`);
+
+                        // Populate form fields
+                        const person = personData.find(p => p.id == personId);
+                        if (person) {
+                            document.getElementById("stafffirstnameinput").value = person.firstName;
+                            document.getElementById("stafflastnameinput").value = person.lastName;
+                            document.getElementById("emailinput").value = person.email;
+                            document.getElementById("phoneinput").value = person.phone;
+                            document.getElementById("locationinput").value = person.location;
+
+                            document.getElementById("updatepersonbutton").disabled = false;
+
+                        }
+                    });
+
+                } else {
+                    console.error("Error:", await response.text());
+                }
+            } catch (error) {
+                console.error("Failed:", error);
+            }
+        }
+
+
+        document.getElementById("searchinput").addEventListener("input", (e) => {
+            const searchText = e.target.value.trim(); // Trim whitespace
+            let staffTableBody = document.getElementById("stafftablebody");
+
+            fetch("http://localhost:5221/searchtext", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ SearchText: searchText }) // Ensure the key matches the backend model
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch search results.");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    // Clear the table body
+                    staffTableBody.innerHTML = "";
+
+                    // Get the matched data
+                    const personData = data.matchText || []; // Use an empty array as fallback
+                    console.log(personData);
+
+                    // Populate table rows
+                    let row = "";
+                    let personId = 0;
+                    for (let person of personData) {
+                        row += `<tr>
+                    <td>${++personId}</td>
+                    <td>${person.id}</td>
+                    <td><img src="${person.photoUrl}" alt="Photo" class="img-fluid" style="width: 50px; height: 50px;"></td>
+                    <td>${person.firstName} ${person.lastName}</td>
+                    <td>${person.email}</td>
+                    <td>${person.phone}</td>
+                    <td>${person.location}</td>
+                </tr>`;
+                    }
+
+                    // Update the table
+                    staffTableBody.innerHTML = row;
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        });
+
+
+
+
+        getPeople();
+
+        //add new person
+
+        document.getElementById("addpersonbutton").addEventListener("click", (e) => {
+
+            document.getElementById("updatepersonbutton").disabled = true;
+
+
+
+            console.log("captured");
+            const firstName = document.getElementById("stafffirstnameinput").value.trim();
+            const lastName = document.getElementById("stafflastnameinput").value.trim();
+            const email = document.getElementById("emailinput").value.trim();
+            const phone = document.getElementById("phoneinput").value.trim();
+            const location = document.getElementById("locationinput").value.trim();
+
+            //create a new person object 
+            const newPerson = {
+                FirstName: firstName,
+                LastName: lastName,
+                Email: email,
+                Phone: phone,
+                Location: location
+            };
+
+            //person debug line 
+            console.log(JSON.stringify(newPerson));
+
+            //fetch 
+            fetch("http://localhost:5221/addnewperson", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newPerson)
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("failed fetch from server")
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data);
+
+                    alert("new person added")
+                    document.getElementById("addpersonform").reset();
+                    getPeople()
+
+                })
+                .catch((error) => {
+                    console.error("error", error);
+                })
+
+
+
+        })
+
+        // Add event listener to "Update Person" button
+        document.getElementById("updatepersonbutton").addEventListener("click", (e) => {
+            console.log("Update button clicked");
+
+            // Gather updated form data
+            const id = document.querySelector("#stafftablebody tr.selected").getAttribute("data-person-id");
+            const firstName = document.getElementById("stafffirstnameinput").value.trim();
+            const lastName = document.getElementById("stafflastnameinput").value.trim();
+            const email = document.getElementById("emailinput").value.trim();
+            const phone = document.getElementById("phoneinput").value.trim();
+            const location = document.getElementById("locationinput").value.trim();
+            const photoUrl = document.querySelector("#stafftablebody tr.selected img").src; // Get the current photo URL
+
+
+            // Create an updated person object
+            const updatedPerson = {
+                Id: parseInt(id, 10),
+                FirstName: firstName,
+                LastName: lastName,
+                Email: email,
+                Phone: phone,
+                Location: location,
+                PhotoUrl: photoUrl
+            };
+
+            console.log("Updated person:", updatedPerson);
+
+            // Send the update request
+            fetch("http://localhost:5221/updateperson", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updatedPerson)
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Failed to update person");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    alert("Person updated successfully!");
+
+                    // Refresh the table
+                    getPeople();
+
+                    // Reset form and button states
+                    document.getElementById("addpersonform").reset();
+                    document.getElementById("updatepersonbutton").disabled = true;
+
+                })
+                .catch((error) => {
+                    console.error("Error updating person:", error);
+                });
+        });
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

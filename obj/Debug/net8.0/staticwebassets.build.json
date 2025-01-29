@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "Hash": "FnPk1tvwQWnlV/e+2gNRT5SgbGzZ/PK9/Tqx6LyQNBY=",
+  "Source": "FakeStoreB",
+  "BasePath": "_content/FakeStoreB",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "FakeStoreB\\wwwroot",
+      "Source": "FakeStoreB",
+      "ContentRoot": "I:\\FILES\\CODES PROGRAMMING\\FAKESTORE\\FakeStoreB\\wwwroot\\",
+      "BasePath": "_content/FakeStoreB",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "I:\\FILES\\CODES PROGRAMMING\\FAKESTORE\\FakeStoreB\\wwwroot\\index.html",
+      "SourceId": "FakeStoreB",
+      "SourceType": "Discovered",
+      "ContentRoot": "I:\\FILES\\CODES PROGRAMMING\\FAKESTORE\\FakeStoreB\\wwwroot\\",
+      "BasePath": "_content/FakeStoreB",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    },
+    {
+      "Identity": "I:\\FILES\\CODES PROGRAMMING\\FAKESTORE\\FakeStoreB\\wwwroot\\style.css",
+      "SourceId": "FakeStoreB",
+      "SourceType": "Discovered",
+      "ContentRoot": "I:\\FILES\\CODES PROGRAMMING\\FAKESTORE\\FakeStoreB\\wwwroot\\",
+      "BasePath": "_content/FakeStoreB",
+      "RelativePath": "style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\style.css"
+    },
+    {
+      "Identity": "I:\\FILES\\CODES PROGRAMMING\\FAKESTORE\\FakeStoreB\\wwwroot\\table.html",
+      "SourceId": "FakeStoreB",
+      "SourceType": "Discovered",
+      "ContentRoot": "I:\\FILES\\CODES PROGRAMMING\\FAKESTORE\\FakeStoreB\\wwwroot\\",
+      "BasePath": "_content/FakeStoreB",
+      "RelativePath": "table.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\table.html"
+    }
+  ]
+}

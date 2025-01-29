@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "I:\\FILES\\CODES PROGRAMMING\\FAKESTORE\\FakeStoreB\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "I:\\FILES\\CODES PROGRAMMING\\FAKESTORE\\FakeStoreB\\wwwroot\\style.css",
+      "PackagePath": "staticwebassets\\style.css"
+    },
+    {
+      "Id": "I:\\FILES\\CODES PROGRAMMING\\FAKESTORE\\FakeStoreB\\wwwroot\\table.html",
+      "PackagePath": "staticwebassets\\table.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.FakeStoreB.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.FakeStoreB.props",
+      "PackagePath": "build\\FakeStoreB.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.FakeStoreB.props",
+      "PackagePath": "buildMultiTargeting\\FakeStoreB.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.FakeStoreB.props",
+      "PackagePath": "buildTransitive\\FakeStoreB.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

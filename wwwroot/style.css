@@ -1,0 +1,12 @@
+.table-responsive {
+  overflow-y: auto;
+  max-height: 799px;
+  margin-bottom: 15px;
+}
+
+#stafftablebody :hover {
+  cursor: pointer;
+  background-color: rgb(47, 228, 24) !important;
+}
+
+
